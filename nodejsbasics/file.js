@@ -31,15 +31,15 @@ fs.rm('./newfolder',{recursive:true, force:true}, (error) =>{
 }
 
 // directories remove folder
-// if (fs.existsSync('./newfolder')){
-//   fs.rm('./newfolder',{ recursive: true, force: true }, (error)=>{
-//     if(error){
-//       console.log(error)
-//     }
-//     console.log('folder created')
-//   })
+if (fs.existsSync('./newfolder')){
+  fs.rm('./newfolder',{ recursive: true, force: true }, (error)=>{
+    if(error){
+      console.log(error)
+    }
+    console.log('folder created')
+  })
   
-// }
+}
 
 
 // writing files
