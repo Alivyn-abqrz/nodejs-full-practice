@@ -1,9 +1,12 @@
 const http = require('http');
 const PORT = 3002;
+const _ = require('lodash');
 const fs = require('fs');
  
 const server = http.createServer((req, res) => {
-  console.log(`request made ${req.url} ${req.method}`);
+  // lodash
+    const randomNum = _.random(1, 100);
+    console.log(randomNum)
   res.setHeader('Content-Type', 'text/html');
    let path = './views/';
    if (req.url === '/'){

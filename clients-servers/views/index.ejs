@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head.ejs')%>
+<body>
+ <%- include('./partials/nav.ejs') %>
+  <div class="blogs content">
+    <h2>All Animes</h2>
+    <% if (anime.length > 0) { %>
+      <% anime.forEach(anime => { %>
+        <h2 class="title"> <%= anime.title %> </h2>
+        <p class="name"> <%= anime.name %> </p>
+        <p class="power"> <%= anime.power %> </p>
+      <% }) %>
+    <% } else {%>
+      <p>there is no anime to display </p>
+      <% } %>
+  </div>
+  <%- include('./partials/footer.ejs') %>
+</body>
+</html>
