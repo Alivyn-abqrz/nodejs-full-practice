@@ -2,12 +2,19 @@ const express = require('express');
 const app = express();
 const ejs = require('ejs')
 const PORT = 5000;
+const morgan = require('morgan')
+const dbUrl = 'mongodb+srv://<db_username>:<db_password>@cluster0.lxoui.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
 
 // register view engine
 app.set('view engine', 'ejs');
 
 // Listen for request
 app.listen(PORT)
+// morgan app
+app.use(morgan('dev'))
+
+//middle ware & static files
+app.use(express.static('public')) 
 
 app.get('/', (req, res) => {
   const anime = [
