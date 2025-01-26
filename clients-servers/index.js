@@ -1,36 +1,44 @@
 const express = require('express');
 const app = express();
 const ejs = require('ejs')
-const PORT = 5000;
+const PORT = 5001;
 const morgan = require('morgan')
-const dbUrl = 'mongodb+srv://<db_username>:<db_password>@cluster0.lxoui.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+const mongoose = require('mongoose')
+const username = 'alvivyn';
+const password = encodeURIComponent("abarquez321");
+const blogRouter = require('./routes/blogRoutes')
+// connect to mongoDb
+const dbUrl = `mongodb+srv://${username}:${password}@firstcluster.lxoui.mongodb.net/?retryWrites=true&w=majority&appName=firstCluster`
+mongoose.connect(dbUrl)
+.then((result)=>{
+  app.listen(PORT)
+})
+.catch((err) => {
+  console.log(err)
+})
+
 
 // register view engine
 app.set('view engine', 'ejs');
 
-// Listen for request
-app.listen(PORT)
 // morgan app
 app.use(morgan('dev'))
 
 //middle ware & static files
-app.use(express.static('public')) 
+app.use(express.static('public')) ;
+// for post data
+app.use(express.urlencoded({extended: true}));
 
-app.get('/', (req, res) => {
-  const anime = [
-    {title: 'Hero Academia', name: 'Midurya Isuku', power: 'One for All' },
-    {title: 'Dragon ball', name: 'guko chan', power: 'super sience'},
-    {title: 'One piece', name:'Monkey D Lupin', 
-      power:'rubber man'
-    }
-  ]
-  res.render('index', {title: 'home', anime})
-});
+// blog routes
+app.use('/blogs',blogRouter);
+
+// routes
+app.get('/', (req, res)  => {
+  res.redirect('blogs')
+})
+
 app.get('/about', (req, res) =>{
   res.render('about', {title: 'about'})
-});
-app.get('/blog/create', (req, res) =>{
-  res.render('create', {title: 'create'})
 });
 // redirecting
 app.get('/about-us', (req, res) => {
